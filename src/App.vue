@@ -1,12 +1,45 @@
 <script>
 export default {
+  data() {
+    return {
+      systemInfo: null,
+      userInfo: null
+    }
+  },
   created () {
     // 调用API从本地缓存中获取数据
+    const that = this;
     const logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
     console.log('app created and cache logs by setStorageSync')
+
+    wx.getSystemInfo({
+      success: function(res) {
+      that.systemInfo = res;
+      }
+    })
+  },
+  methods: {
+    getUserInfo:function(cb){
+      var that = this
+      if(this.userInfo){
+        typeof cb == "function" && cb(this.userInfo)
+      }else{
+        //调用登录接口
+        wx.login({
+          success: function () {
+            wx.getUserInfo({
+              success: function (res) {
+                that.userInfo = res.userInfo
+                typeof cb == "function" && cb(that.userInfo)
+              }
+            })
+          }
+        })
+      }
+    },
   }
 }
 </script>

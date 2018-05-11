@@ -1,10 +1,14 @@
 import Vue from 'vue'
 import App from './App'
+import store from './store'
 
 Vue.config.productionTip = false
 App.mpType = 'app'
 
-const app = new Vue(App)
+const app = new Vue({
+  store,
+  ...App
+})
 app.$mount()
 
 export default {
@@ -14,9 +18,9 @@ export default {
     pages: ['pages/logs/main', '^pages/index/main'],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
+      navigationBarBackgroundColor: '#181818',
+      navigationBarTitleText: '婚礼纪',
+      navigationBarTextStyle: 'white'
     }
   }
 }
