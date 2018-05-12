@@ -1,6 +1,6 @@
 <template>
-  <div class="container" @click="clickHandle('test click', $event)">
-
+  <div class="container">
+    <button open-type="getUserInfo">获取用户信息</button>
     <div class="userinfo" @click="bindViewTap">
       <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
       <div class="userinfo-nickname">
@@ -23,47 +23,59 @@
 </template>
 
 <script>
-import card from '@/components/card'
+import { mapState, mapActions, mapMutations } from 'vuex'
+import card from '@/components/card';
 
 export default {
-  data () {
+  data() {
     return {
       motto: 'Hello World',
       userInfo: {}
-    }
+    };
   },
-
+  computed: {
+    ...mapState('sys', ['systemInfo']),
+    ...mapState('user', ['userInfo'])
+  },
   components: {
     card
   },
+  mounted () {
+    console.log('====================================');
+    console.log('systemInfo: ', this.systemInfo);
+    console.log('userInfo: ', this.userInfo);
 
+    console.log('====================================');
+  },
   methods: {
-    bindViewTap () {
-      const url = '../logs/main'
-      wx.navigateTo({ url })
+    ...mapActions('user', ['getUserInfo']),
+    bindViewTap() {
+      const url = '../logs/main';
+      wx.navigateTo({ url });
     },
-    getUserInfo () {
-      // 调用登录接口
-      wx.login({
-        success: () => {
-          wx.getUserInfo({
-            success: (res) => {
-              this.userInfo = res.userInfo
-            }
-          })
-        }
-      })
-    },
-    clickHandle (msg, ev) {
-      console.log('clickHandle:', msg, ev)
-    }
+    // getUserInfo() {
+    //   // 调用登录接口
+    //   wx.login({
+    //     success: () => {
+    //       wx.getUserInfo({
+    //         success: res => {
+    //           this.userInfo = res.userInfo;
+    //         }
+    //       });
+    //     }
+    //   });
+    // },
+    // async clickHandle(msg, ev) {
+    //   console.log('clickHandle:', msg, ev);
+    //   await this.getUserInfo();
+    // }
   },
 
-  created () {
+  created() {
     // 调用应用实例的方法获取全局数据
-    this.getUserInfo()
+    // this.getUserInfo();
   }
-}
+};
 </script>
 
 <style scoped>

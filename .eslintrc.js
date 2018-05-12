@@ -4,6 +4,7 @@ module.exports = {
   root: true,
   parser: 'babel-eslint',
   parserOptions: {
+    ecmaVersion: 8,
     sourceType: 'module'
   },
   env: {
@@ -15,7 +16,7 @@ module.exports = {
   extends: 'standard',
   // required to lint *.vue files
   plugins: [
-    'html'
+    'html', 'prettier'
   ],
   // add your custom rules here
   'rules': {
@@ -24,7 +25,14 @@ module.exports = {
     // allow async-await
     'generator-star-spacing': 0,
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
+    'no-debugger': process.env.NODE_ENV === 'production'
+      ? 2
+      : 0,
+    'import/newline-after-import': 0,
+    'space-before-function-paren': 0,
+    'semi': 0,
+    'eqeqeq': 0,
+    'no-unused-vars': 0
   },
   globals: {
     App: true,
