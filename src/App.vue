@@ -3,8 +3,6 @@ import { mapState, mapActions, mapMutations } from 'vuex'
 export default {
   data() {
     return {
-      // systemInfo: null,
-      // userInfo: null
     };
   },
   computed: {
@@ -21,40 +19,15 @@ export default {
     console.log('app created and cache logs by setStorageSync');
 
     this.fetchData();
-
-    // wx.getSystemInfo({
-    //   success: function(res) {
-    //     that.systemInfo = res;
-    //   }
-    // });
   },
   methods: {
     ...mapActions('sys', ['getSystemInfo']),
     ...mapActions('user', ['getUserInfo']),
     async fetchData() {
-      await this.getSystemInfo();
-      await this.getUserInfo();
+      // await this.getSystemInfo();
+      // await this.getUserInfo();
       await Promise.all([this.getSystemInfo(), this.getUserInfo()])
     }
-
-    // getUserInfo: function(cb) {
-    //   var that = this;
-    //   if (this.userInfo) {
-    //     typeof cb == 'function' && cb(this.userInfo);
-    //   } else {
-    //     // 调用登录接口
-    //     wx.login({
-    //       success: function() {
-    //         wx.getUserInfo({
-    //           success: function(res) {
-    //             that.userInfo = res.userInfo;
-    //             typeof cb == 'function' && cb(that.userInfo);
-    //           }
-    //         });
-    //       }
-    //     });
-    //   }
-    // }
   }
 };
 </script>

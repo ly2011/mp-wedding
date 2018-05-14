@@ -1,42 +1,34 @@
 // home.js(index.js)
-import sys from './sys';
-const sysState = sys.state
-const { systemInfo } = sysState
-let windowWidth;
-let windowHight;
-if (systemInfo) {
-  windowWidth = systemInfo.windowWidth
-  windowHight = systemInfo.windowHight
-}
+
 const state = {
-  width: windowWidth, // eslint-disable-line
-  height: windowHight, // eslint-disable-line
+  // width: 0, // eslint-disable-line
+  // height: 0, // eslint-disable-line
   banner: [
     'http://i.dxlfile.com/adm/material/2016_12_12/20161212135600242250.jpg', 'http://i.dxlfile.com/adm/material/2017_01_04/2017010411165785666.jpg', 'http://i.dxlfile.com/adm/material/2017_01_04/20170104140739205869.jpg', 'http://i.dxlfile.com/adm/material/2017_01_16/20170116171332214897.jpg'
   ],
   functions: [
     {
-      url: '../../images/i01.png',
+      url: '/static/images/i01.png',
       name: '婚礼策划',
       id: '01'
     }, {
-      url: '../../images/i02.png',
+      url: '/static/images/i02.png',
       name: '婚纱摄影',
       id: '02'
     }, {
-      url: '../../images/i03.png',
+      url: '/static/images/i03.png',
       name: '婚宴酒店',
       id: '03'
     }, {
-      url: '../../images/i04.png',
+      url: '/static/images/i04.png',
       name: '婚礼用车',
       id: '04'
     }, {
-      url: '../../images/i05.png',
+      url: '/static/images/i05.png',
       name: '婚礼用品',
       id: '05'
     }, {
-      url: '../../images/i06.png',
+      url: '/static/images/i06.png',
       name: '金银首饰',
       id: '06'
     }

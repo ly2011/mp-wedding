@@ -1,16 +1,8 @@
 // store/modules/shoplist.js
-import sys from './sys';
-const sysState = sys.state
-const { systemInfo } = sysState
-let windowWidth;
-let windowHight;
-if (systemInfo) {
-  windowWidth = systemInfo.windowWidth
-  windowHight = systemInfo.windowHight
-}
+import { CHANGE_STORELIST_NAV, CHANGE_STORELIST_SHOWSPINNER, GET_STORELIST_SPINNERS } from '@/store/mutations-type';
 const state = {
   selectedNav: '00',
-  width: windowWidth,
+  // width: windowWidth,
   showspinner: false,
   nearby: [
     {
@@ -209,9 +201,47 @@ const state = {
   ]
 }
 
-const mutations = {}
+const mutations = {
+  [CHANGE_STORELIST_NAV]: (state, { data }) => {
+    state.selectedNav = data
+  },
+  [CHANGE_STORELIST_SHOWSPINNER]: (state, { data }) => {
+    state.showspinner = data
+  },
+  [GET_STORELIST_SPINNERS]: (state, { data }) => {
+    state.spinners = data
+  }
+}
 
-const actions = {}
+const actions = {
+  changeNav: async ({ state, commit }, id) => {
+    console.log('====================================');
+    console.log('id: ', id);
+    console.log('====================================');
+    if (id == state.selectedNav) {
+      id = '00';
+      commit(CHANGE_STORELIST_SHOWSPINNER, {data: false})
+    } else {
+      commit(CHANGE_STORELIST_SHOWSPINNER, {data: true})
+    }
+    console.log('====================================');
+    console.log('id-2: ', id);
+    console.log('====================================');
+    commit(CHANGE_STORELIST_NAV, { data: id })
+    let temps = state.spinners;
+    if (id == '02') {
+      temps = state.sort;
+    } else if (id == '03') {
+      temps = state.rank
+    } else if (id == '01') {
+      temps = state.nearby
+    }
+    commit(GET_STORELIST_SPINNERS, {data: temps})
+  },
+  closeSpinner: ({state, commit}) => {
+    commit(CHANGE_STORELIST_SHOWSPINNER, {data: false})
+  }
+}
 
 export default {
   state,

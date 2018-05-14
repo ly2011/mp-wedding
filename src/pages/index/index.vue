@@ -1,117 +1,128 @@
 <template>
-  <div class="container">
-    <button open-type="getUserInfo">获取用户信息</button>
-    <div class="userinfo" @click="bindViewTap">
-      <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
-      <div class="userinfo-nickname">
-        <card :text="userInfo.nickName"></card>
-      </div>
-    </div>
+  <div class="md-index">
+    <button open-type="getUserInfo" v-show="!userInfo">获取用户信息</button>
+    <div class="md-index__content">
+      <scroll-view class="md-index__scroller" :style="scrollViewStyle"  scroll-y="true" lower-threshold="800" bindscrolltolower="loadmore">
+        <swiper class="md-index__banners" indicator-dots="true" autoplay="true" interval="4000" duration="1000" indicator-color="#60ffff" indicator-active-color="#fff">
+          <block v-for="(item, index) in banner" :key="index">
+            <swiper-item>
+              <image  :src="item" class="md-index__banner" mode="aspectFill"/>
+            </swiper-item>
+          </block>
+        </swiper>
 
-    <div class="usermotto">
-      <div class="user-motto">
-        <card :text="motto"></card>
-      </div>
-    </div>
+        <div class="md-index__funcs">
+          <div class="md-index__func" v-for="item in functions" :key="item.id" @click="fucClick">
+            <image :src="item.url" mode="aspectFill" />
+            <div class="md-index__name">{{item.name}}</div>
+          </div>
+        </div>
 
-    <form class="form-container">
-      <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
-      <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
-    </form>
-    <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
+        <view class="md-index__maylike">
+          <view class="md-index__title">猜你喜欢</view>
+          <view class="md-index__goods">
+            <block v-for="(good, index) in goods" :key="index">
+              <good :good="good"></good>
+            </block>
+          </view>
+        </view>
+      </scroll-view>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex'
-import card from '@/components/card';
+import Good from '@/components/good/good'
 
 export default {
   data() {
     return {
-      motto: 'Hello World',
-      userInfo: {}
+      width: 0,
+      height: 0
     };
   },
   computed: {
+    ...mapState('user', ['userInfo']),
     ...mapState('sys', ['systemInfo']),
-    ...mapState('user', ['userInfo'])
+    ...mapState('home', ['banner', 'functions', 'goods']),
+    scrollViewStyle() {
+      // return `width:${this.width}px;height:${this.height}px`
+    }
   },
   components: {
-    card
+    Good
   },
-  mounted () {
-    console.log('====================================');
-    console.log('systemInfo: ', this.systemInfo);
-    console.log('userInfo: ', this.userInfo);
 
-    console.log('====================================');
-  },
   methods: {
-    ...mapActions('user', ['getUserInfo']),
     bindViewTap() {
       const url = '../logs/main';
       wx.navigateTo({ url });
     },
-    // getUserInfo() {
-    //   // 调用登录接口
-    //   wx.login({
-    //     success: () => {
-    //       wx.getUserInfo({
-    //         success: res => {
-    //           this.userInfo = res.userInfo;
-    //         }
-    //       });
-    //     }
-    //   });
-    // },
-    // async clickHandle(msg, ev) {
-    //   console.log('clickHandle:', msg, ev);
-    //   await this.getUserInfo();
-    // }
+    fucClick() {
+      wx.navigateTo({
+        url: '../storelist/main'
+      })
+    }
   },
 
   created() {
-    // 调用应用实例的方法获取全局数据
-    // this.getUserInfo();
+
   }
 };
 </script>
 
-<style scoped>
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+<style lang="scss" scoped>
+@import 'node_modules/sass-bem/bem';
+$bem-component-namespace: 'md';
 
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
+@include c('index') {
+  background-color: #f0f0f0;
+  @include e('banner') {
+    width: 100%;
+    height: 411px;
+  }
+  @include e('funcs') {
+    background-color: #fff;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 
-.userinfo-nickname {
-  color: #aaa;
-}
+    padding: 20rpx 0 0 0;
+  }
 
-.usermotto {
-  margin-top: 150px;
-}
+  @include e('func') {
+    width: 25%;
+    text-align: center;
+    margin-bottom: 30rpx;
 
-.form-control {
-  display: block;
-  padding: 0 12px;
-  margin-bottom: 5px;
-  border: 1px solid #ccc;
-}
+    image {
+      width: 100rpx;
+      height: 100rpx;
+      text-align: center;
+    }
 
-.counter {
-  display: inline-block;
-  margin: 10px auto;
-  padding: 5px 10px;
-  color: blue;
-  border: 1px solid blue;
+    @include e('name') {
+      text-align: center;
+      color: #666;
+      font-size: 26rpx;
+      margin-top: 10rpx;
+    }
+  }
+
+  @include e('maylike') {
+    background-color: #fff;
+    margin-top: 30rpx;
+    padding-top: 20rpx;
+
+    @include e('title') {
+      color: #808080;
+      font-size: 28rpx;
+      margin-left: 28rpx;
+      margin-top: -10rpx;
+    }
+  }
+
 }
 </style>
