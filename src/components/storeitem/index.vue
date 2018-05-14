@@ -4,7 +4,7 @@
     <div class="md-storeitem__info">
       <div class="name">{{store.name}}</div>
       <div class="star_price">
-        <star :count="store.start" /> {{store.price}}
+        <star :count="store.star" /> {{store.price}}
       </div>
       <div class="type_km">
         <div class="type">{{store.buztype}}</div>
@@ -15,23 +15,31 @@
 </template>
 
 <script>
-import Star from '@/components/star'
+import Star from '@/components/star';
 export default {
   props: {
     store: {
       type: Object,
       default() {
-        return {}
+        return {};
       }
     }
   },
   components: {
     Star
+  },
+  methods: {
+    storeClick() {
+      wx.navigateTo({
+        url: '../store/main'
+      });
+    }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/mixins.scss';
 @import 'node_modules/sass-bem/bem';
 $bem-component-namespace: 'md';
 
@@ -62,9 +70,7 @@ $bem-component-namespace: 'md';
     .name {
       color: #111;
       font-size: 40rpx;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+      @include text-ellipsis;
     }
 
     .star_price {
@@ -80,9 +86,7 @@ $bem-component-namespace: 'md';
       flex-wrap: nowrap;
 
       .type {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+        @include text-ellipsis;
         flex: 1;
       }
     }

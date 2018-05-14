@@ -10,8 +10,10 @@
 
 <script>
 export default {
-
-}
+  props: {
+    count: Number
+  }
+};
 </script>
 
 <style lang="scss" scoped>

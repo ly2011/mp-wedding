@@ -6,6 +6,6 @@ app.$mount();
 
 export default {
   config: {
-    navigationBarTitleText: '婚庆啦'
+    navigationBarTitleText: '商户详情'
   }
 };

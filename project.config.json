@@ -10,7 +10,7 @@
 	"miniprogramRoot": "./dist/",
 	"compileType": "miniprogram",
 	"appid": "wxcd390c679ac4c932",
-	"projectname": "mp-wedding",
+	"projectname": "%E5%A9%9A%E7%A4%BC%E7%BA%AA",
 	"condition": {
 		"search": {
 			"current": -1,

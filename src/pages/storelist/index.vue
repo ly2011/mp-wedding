@@ -42,9 +42,9 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from 'vuex'
-import Star from '@/components/star'
-import StoreItem from '@/components/storeitem'
+import { mapState, mapActions, mapMutations } from 'vuex';
+import Star from '@/components/star';
+import StoreItem from '@/components/storeitem';
 export default {
   components: {
     Star,
@@ -56,18 +56,13 @@ export default {
   methods: {
     ...mapActions('shoplist', ['changeNav', 'closeSpinner']),
     async navitation(id) {
-      await this.changeNav(id)
-    },
-    storeClick() {
-      // wx.navigateTo({
-      //   url: '../store/store'
-      // })
+      await this.changeNav(id);
     },
     spinnerClick() {
       this.closeSpinner();
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -144,7 +139,7 @@ export default {
       position: absolute;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, .6);
+      background-color: rgba(0, 0, 0, 0.6);
       z-index: 1;
       top: 0;
       left: 0;
