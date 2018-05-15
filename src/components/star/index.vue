@@ -20,6 +20,7 @@ export default {
 .star-rating {
   display: inline-block;
   margin-right: 6rpx;
+  flex: 1;
 
   image {
     width: 28rpx;

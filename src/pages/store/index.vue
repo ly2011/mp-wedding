@@ -71,11 +71,6 @@ export default {
     // TODO 无法定位
     this.getLocation();
   },
-  mounted() {
-    console.log('====================================');
-    console.log('store: ', this.store);
-    console.log('====================================');
-  },
   methods: {
     ...mapActions('shop', ['getLocation', 'goodsmore', 'openLocation', 'callPhone']),
     async mapLocation() {
@@ -83,6 +78,12 @@ export default {
     },
     async getLocation() {
       await this.getLocation();
+    },
+    goodDetail() {
+      // 跳转到商品详情
+      wx.navigateTo({
+        url: '../goods/main'
+      });
     }
   }
 };
