@@ -50,15 +50,19 @@
         <image :src="seeAllGoods ? '/static/images/arrow_up.png': '/static/images/arrow_down.png'" mode="aspectFill" />
       </div>
     </div>
+
+    <comment :count="store.comments.length" :comments="store.comments" />
   </div>
 </template>
 
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex';
 import Star from '@/components/star';
+import Comment from '@/components/comment';
 export default {
   components: {
-    Star
+    Star,
+    Comment
   },
   computed: {
     ...mapState('shop', ['seeAllGoods', 'btnMsg', 'store'])
@@ -66,6 +70,11 @@ export default {
   created() {
     // TODO 无法定位
     this.getLocation();
+  },
+  mounted() {
+    console.log('====================================');
+    console.log('store: ', this.store);
+    console.log('====================================');
   },
   methods: {
     ...mapActions('shop', ['getLocation', 'goodsmore', 'openLocation', 'callPhone']),
