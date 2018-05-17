@@ -1,4 +1,4 @@
-var cityData = [
+export const cityData = [
   {
     'name': '北京市',
     'id': 110000,
@@ -15185,5 +15185,3 @@ var cityData = [
     'cityList': []
   }
 ];
-
-export const cityData

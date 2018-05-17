@@ -47,6 +47,11 @@ export default {
           pagePath: 'pages/taxi/main',
           iconPath: 'static/images/i02.png',
           selectedIconPath: 'static/images/i02.png'
+        }, {
+          text: '新增地址',
+          pagePath: 'pages/address-add/main',
+          iconPath: 'static/images/i03.png',
+          selectedIconPath: 'static/images/i03.png'
         }
       ]
     }
